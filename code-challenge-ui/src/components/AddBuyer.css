@@ -1,0 +1,143 @@
+:root {
+  --primary-color: #4a90e2;
+  --primary-hover: #357abd;
+  --success-color: #4caf50;
+  --error-color: #f44336;
+  --background-color: #f5f7fa;
+  --card-background: #ffffff;
+  --text-color: #333333;
+  --border-color: #e0e0e0;
+  --input-focus: #4a90e2;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.add-buyer-container {
+  min-height: 100vh;
+  background-color: var(--background-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.add-buyer-card {
+  background-color: var(--card-background);
+  padding: 40px;
+  box-shadow: var(--shadow);
+  max-width: 500px;
+  width: 100%;
+  transition: box-shadow 0.3s ease;
+}
+
+.add-buyer-card:hover {
+  box-shadow: var(--shadow-hover);
+}
+
+.add-buyer-card h1 {
+  margin: 0 0 30px 0;
+  color: var(--text-color);
+  font-size: 28px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 24px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-color);
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.required {
+  color: var(--error-color);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--border-color);
+  font-size: 14px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-sizing: border-box;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--input-focus);
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+}
+
+.form-group input.error {
+  border-color: var(--error-color);
+}
+
+.error-text {
+  display: block;
+  color: var(--error-color);
+  font-size: 12px;
+  margin-top: 6px;
+}
+
+.success-message {
+  background-color: #e8f5e9;
+  border-left: 4px solid var(--success-color);
+  color: #2e7d32;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.error-message {
+  background-color: #ffebee;
+  border-left: 4px solid var(--error-color);
+  color: #c62828;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 14px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  margin-top: 10px;
+}
+
+.submit-btn:hover:not(:disabled) {
+  background-color: var(--primary-hover);
+}
+
+.submit-btn:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.submit-btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+@media (max-width: 768px) {
+  .add-buyer-card {
+    padding: 30px 20px;
+  }
+
+  .add-buyer-card h1 {
+    font-size: 24px;
+  }
+
+  .form-group input {
+    padding: 10px 14px;
+  }
+}
