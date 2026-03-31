@@ -114,41 +114,29 @@ az webapp config appsettings set \
 **Your Backend API URL:**
 `https://coding-contest-api-fqh8agb3gga3h7d2.canadacentral-01.azurewebsites.net`
 
-**Your Frontend URL (use one of these based on your setup):**
-- If using Static Web App: `https://[your-static-app-name].azurestaticapps.net`
-- If using App Service: `https://coding-contest-ui-bge9e5fugugqgubn.canadacentral-01.azurewebsites.net`
+**Your Frontend URL:**
+`https://mango-field-065202a1e.2.azurestaticapps.net` (Azure Static Web App)
+
+The backend is already configured to allow CORS from your frontend. No additional Azure Portal configuration needed!
 
 ```bash
-# Using Azure CLI - Replace with your actual resource group and frontend URL
-az webapp cors add \
-  --name coding-contest-api-fqh8agb3gga3h7d2 \
-  --resource-group YOUR-RESOURCE-GROUP \
-  --allowed-origins https://[YOUR-FRONTEND-URL]
+# CORS is already configured in the Java code!
+# The backend allows: https://mango-field-065202a1e.2.azurestaticapps.net
+# No additional Azure CLI commands needed.
 
-# Example for Static Web App:
-az webapp cors add \
-  --name coding-contest-api-fqh8agb3gga3h7d2 \
-  --resource-group YOUR-RESOURCE-GROUP \
-  --allowed-origins https://your-static-app-name.azurestaticapps.net
-
-# Example for App Service:
-az webapp cors add \
-  --name coding-contest-api-fqh8agb3gga3h7d2 \
-  --resource-group YOUR-RESOURCE-GROUP \
-  --allowed-origins https://coding-contest-ui-bge9e5fugugqgubn.canadacentral-01.azurewebsites.net
-
-# Also allow localhost for local testing:
-az webapp cors add \
-  --name coding-contest-api-fqh8agb3gga3h7d2 \
-  --resource-group YOUR-RESOURCE-GROUP \
-  --allowed-origins http://localhost:3000
+# If you need to verify CORS in Azure Portal:
+# 1. Go to App Service → coding-contest-api-fqh8agb3gga3h7d2
+# 2. Click CORS in left menu
+# 3. Verify these origins are allowed:
+#    - https://mango-field-065202a1e.2.azurestaticapps.net
+#    - http://localhost:3000 (for local development)
 ```
 
-**Or via Azure Portal:**
+**Or via Azure Portal (Optional - already configured in code):**
 1. Go to: App Service → **coding-contest-api-fqh8agb3gga3h7d2**
 2. In left menu, click **CORS**
-3. Add these allowed origins:
-   - `https://[your-frontend-url]` (your Static Web App or App Service URL)
+3. Add these allowed origins (if not already present):
+   - `https://mango-field-065202a1e.2.azurestaticapps.net`
    - `http://localhost:3000` (for local development)
 4. Click **Save**
 
@@ -235,14 +223,14 @@ Workflows automatically run when you push changes to:
 | Resource | Name | URL |
 |----------|------|-----|
 | App Service (Backend) | `coding-contest-api-fqh8agb3gga3h7d2` | `https://coding-contest-api-fqh8agb3gga3h7d2.canadacentral-01.azurewebsites.net` |
-| Static Web App (Frontend) | `[YOUR-STATIC-APP-NAME]` | `https://[YOUR-STATIC-APP-NAME].azurestaticapps.net` |
-| App Service (Frontend - if used) | `coding-contest-ui-bge9e5fugugqgubn` | `https://coding-contest-ui-bge9e5fugugqgubn.canadacentral-01.azurewebsites.net` |
+| Static Web App (Frontend) | `mango-field-065202a1e` | `https://mango-field-065202a1e.2.azurestaticapps.net` |
 | PostgreSQL Database | `[YOUR-DB-SERVER]` | `[YOUR-DB-SERVER].postgres.database.azure.com` |
 | Resource Group | `[YOUR-RG]` | - |
 
 **CORS Configuration:**
-- Backend must allow: Your frontend URL (Static Web App or App Service)
-- For local testing: Also allow `http://localhost:3000`
+✅ **Already configured in code!** Backend allows requests from:
+- `https://mango-field-065202a1e.2.azurestaticapps.net`
+- `http://localhost:3000` (for local development)
 
 ## Next Steps
 
