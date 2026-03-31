@@ -31,7 +31,9 @@ jobs:
       run: |
         cd code-challenge-api
         chmod +x mvnw
-        ./mvnw clean package -DskipTests -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true
+        ./mvnw clean package -DskipTests
+      env:
+        MAVEN_OPTS: "-Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -Dmaven.wagon.http.ssl.ignore.validity.dates=true"
 
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v3
