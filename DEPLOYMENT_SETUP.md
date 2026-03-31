@@ -111,24 +111,55 @@ az webapp config appsettings set \
 
 ## Step 4: Configure CORS (Allow Frontend to Access Backend)
 
+**Your Backend API URL:**
+`https://coding-contest-api-fqh8agb3gga3h7d2.canadacentral-01.azurewebsites.net`
+
+**Your Frontend URL (use one of these based on your setup):**
+- If using Static Web App: `https://[your-static-app-name].azurestaticapps.net`
+- If using App Service: `https://coding-contest-ui-bge9e5fugugqgubn.canadacentral-01.azurewebsites.net`
+
 ```bash
+# Using Azure CLI - Replace with your actual resource group and frontend URL
 az webapp cors add \
-  --name YOUR-APP-SERVICE-NAME \
+  --name coding-contest-api-fqh8agb3gga3h7d2 \
   --resource-group YOUR-RESOURCE-GROUP \
-  --allowed-origins https://YOUR-STATIC-WEB-APP.azurestaticapps.net
+  --allowed-origins https://[YOUR-FRONTEND-URL]
+
+# Example for Static Web App:
+az webapp cors add \
+  --name coding-contest-api-fqh8agb3gga3h7d2 \
+  --resource-group YOUR-RESOURCE-GROUP \
+  --allowed-origins https://your-static-app-name.azurestaticapps.net
+
+# Example for App Service:
+az webapp cors add \
+  --name coding-contest-api-fqh8agb3gga3h7d2 \
+  --resource-group YOUR-RESOURCE-GROUP \
+  --allowed-origins https://coding-contest-ui-bge9e5fugugqgubn.canadacentral-01.azurewebsites.net
+
+# Also allow localhost for local testing:
+az webapp cors add \
+  --name coding-contest-api-fqh8agb3gga3h7d2 \
+  --resource-group YOUR-RESOURCE-GROUP \
+  --allowed-origins http://localhost:3000
 ```
 
 **Or via Azure Portal:**
-1. Go to: App Service → CORS
-2. Add: `https://YOUR-STATIC-WEB-APP.azurestaticapps.net`
-3. Click **Save**
+1. Go to: App Service → **coding-contest-api-fqh8agb3gga3h7d2**
+2. In left menu, click **CORS**
+3. Add these allowed origins:
+   - `https://[your-frontend-url]` (your Static Web App or App Service URL)
+   - `http://localhost:3000` (for local development)
+4. Click **Save**
 
 ## Step 5: Update Local `.env.production` File
 
 Edit: `code-challenge-ui/.env.production`
 
+This is already configured with your backend URL:
+
 ```env
-REACT_APP_API_URL=https://YOUR-APP-SERVICE-NAME.azurewebsites.net
+REACT_APP_API_URL=https://coding-contest-api-fqh8agb3gga3h7d2.canadacentral-01.azurewebsites.net
 ```
 
 ## Step 6: Commit and Push to GitHub
@@ -201,14 +232,17 @@ Workflows automatically run when you push changes to:
 
 ## Quick Reference: Your Azure Resources
 
-Update these with your actual values:
-
 | Resource | Name | URL |
 |----------|------|-----|
-| App Service (Backend) | `coding-contest-api` | `https://coding-contest-api.azurewebsites.net` |
-| Static Web App (Frontend) | `[YOUR-NAME]` | `https://[YOUR-NAME].azurestaticapps.net` |
+| App Service (Backend) | `coding-contest-api-fqh8agb3gga3h7d2` | `https://coding-contest-api-fqh8agb3gga3h7d2.canadacentral-01.azurewebsites.net` |
+| Static Web App (Frontend) | `[YOUR-STATIC-APP-NAME]` | `https://[YOUR-STATIC-APP-NAME].azurestaticapps.net` |
+| App Service (Frontend - if used) | `coding-contest-ui-bge9e5fugugqgubn` | `https://coding-contest-ui-bge9e5fugugqgubn.canadacentral-01.azurewebsites.net` |
 | PostgreSQL Database | `[YOUR-DB-SERVER]` | `[YOUR-DB-SERVER].postgres.database.azure.com` |
 | Resource Group | `[YOUR-RG]` | - |
+
+**CORS Configuration:**
+- Backend must allow: Your frontend URL (Static Web App or App Service)
+- For local testing: Also allow `http://localhost:3000`
 
 ## Next Steps
 

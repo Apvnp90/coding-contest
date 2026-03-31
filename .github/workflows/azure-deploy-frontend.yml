@@ -34,8 +34,7 @@ jobs:
         cd code-challenge-ui
         npm run build
       env:
-        # Update this with your Azure App Service backend URL
-        REACT_APP_API_URL: coding-contest-api-fqh8agb3gga3h7d2.canadacentral-01.azurewebsites.net
+        REACT_APP_API_URL: https://coding-contest-api-fqh8agb3gga3h7d2.canadacentral-01.azurewebsites.net
 
     - name: Deploy to Azure Static Web Apps
       uses: Azure/static-web-apps-deploy@v1

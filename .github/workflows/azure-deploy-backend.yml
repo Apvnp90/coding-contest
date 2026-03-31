@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_WEBAPP_NAME: coding-contest-api    # Update this to your Azure App Service name
+  AZURE_WEBAPP_NAME: coding-contest-api-fqh8agb3gga3h7d2
   JAVA_VERSION: '17'
 
 jobs:
