@@ -22,7 +22,7 @@ code-challenge/
 1. Install PostgreSQL if not already installed
 2. Create a new database:
    ```sql
-   CREATE DATABASE buyer_db;
+   CREATE DATABASE coding-challenge-db;
    ```
 3. The default credentials in `application.properties` are:
    - Username: `postgres`
