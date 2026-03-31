@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_WEBAPP_NAME: coding-contest-api-fqh8agb3gga3h7d2
+  AZURE_WEBAPP_NAME: coding-contest-api
   JAVA_VERSION: '21'
 
 jobs:
