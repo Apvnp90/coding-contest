@@ -31,6 +31,7 @@ jobs:
     - name: Build with Maven
       run: |
         cd code-challenge-api
+        chmod +x mvnw
         ./mvnw clean package -DskipTests
       env:
         MAVEN_OPTS: "-Xmx512m"
