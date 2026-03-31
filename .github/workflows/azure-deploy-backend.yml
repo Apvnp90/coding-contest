@@ -24,16 +24,16 @@ jobs:
     - name: Set up Java
       uses: actions/setup-java@v4
       with:
-        java-version: ${{ env.JAVA_VERSION }}
-        distribution: 'adopt'
+        java-version: '17'
+        distribution: 'temurin'
         cache: 'maven'
 
     - name: Build with Maven
       run: |
         cd code-challenge-api
-        mvn clean package -DskipTests -s .mvn/maven-settings.xml
+        ./mvnw clean package -DskipTests
       env:
-        MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2,TLSv1.3 -Djavax.net.ssl.trustStoreType=jks"
+        MAVEN_OPTS: "-Xmx512m"
 
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
