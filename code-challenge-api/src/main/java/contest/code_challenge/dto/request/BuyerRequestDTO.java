@@ -22,13 +22,23 @@ public class BuyerRequestDTO {
     @Size(max = 150, message = "Email must not exceed 150 characters")
     private String email;
 
+    @NotBlank(message = "City is required")
+    @Size(max = 50, message = "City must not exceed 50 characters")
+    private String city;
+
+    @NotBlank(message = "State is required")
+    @Size(max = 50, message = "State must not exceed 50 characters")
+    private String state;
+
     public BuyerRequestDTO() {
     }
 
-    public BuyerRequestDTO(String firstName, String lastName, String email) {
+    public BuyerRequestDTO(String firstName, String lastName, String email, String city, String state) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.city = city;
+        this.state = state;
     }
 
     public String getFirstName() {
@@ -53,5 +63,21 @@ public class BuyerRequestDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 }

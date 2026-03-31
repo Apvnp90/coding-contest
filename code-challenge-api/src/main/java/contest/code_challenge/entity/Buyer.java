@@ -32,13 +32,25 @@ public class Buyer {
     @Column(name = "email", nullable = false, length = 150)
     private String email;
 
+    @NotBlank(message = "City is required")
+    @Size(max = 50, message = "City must not exceed 50 characters")
+    @Column(name = "city", nullable = false, length = 50)
+    private String city;
+
+    @NotBlank(message = "State is required")
+    @Size(max = 50, message = "State must not exceed 50 characters")
+    @Column(name = "state", nullable = false, length = 50)
+    private String state;
+
     public Buyer() {
     }
 
-    public Buyer(String firstName, String lastName, String email) {
+    public Buyer(String firstName, String lastName, String email, String city, String state) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.city = city;
+        this.state = state;
     }
 
     public Long getId() {
@@ -71,5 +83,21 @@ public class Buyer {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 }

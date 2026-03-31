@@ -22,6 +22,8 @@ public class BuyerService implements IBuyerService {
         buyer.setFirstName(buyerRequest.getFirstName());
         buyer.setLastName(buyerRequest.getLastName());
         buyer.setEmail(buyerRequest.getEmail());
+        buyer.setCity(buyerRequest.getCity());
+        buyer.setState(buyerRequest.getState());
 
         Buyer savedBuyer = buyerRepository.save(buyer);
 
@@ -29,7 +31,9 @@ public class BuyerService implements IBuyerService {
                 savedBuyer.getId(),
                 savedBuyer.getFirstName(),
                 savedBuyer.getLastName(),
-                savedBuyer.getEmail()
+                savedBuyer.getEmail(),
+                savedBuyer.getCity(),
+                savedBuyer.getState()
         );
     }
 }

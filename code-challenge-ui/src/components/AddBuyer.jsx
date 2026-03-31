@@ -7,7 +7,9 @@ const AddBuyer = () => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
-    email: ''
+    email: '',
+    city: '',
+    state: ''
   });
 
   const [errors, setErrors] = useState({});
@@ -33,6 +35,22 @@ const AddBuyer = () => {
         error = 'Email is required';
       } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
         error = 'Email must be valid';
+      }
+    }
+
+    if (name === 'city') {
+      if (!value.trim()) {
+        error = 'City is required';
+      } else if (value.length > 50) {
+        error = 'City must not exceed 50 characters';
+      }
+    }
+
+    if (name === 'state') {
+      if (!value.trim()) {
+        error = 'State is required';
+      } else if (value.length > 50) {
+        error = 'State must not exceed 50 characters';
       }
     }
 
@@ -86,7 +104,7 @@ const AddBuyer = () => {
       if (response.ok) {
         const data = await response.json();
         setSuccessMessage(`Buyer created successfully with ID: ${data.id}`);
-        setFormData({ firstName: '', lastName: '', email: '' });
+        setFormData({ firstName: '', lastName: '', email: '', city: '', state: '' });
         setErrors({});
       } else {
         const errorData = await response.json();
@@ -161,6 +179,38 @@ const AddBuyer = () => {
             />
             {errors.email && (
               <span className="error-text">{errors.email}</span>
+            )}
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="city">City <span className="required">*</span></label>
+            <input
+              type="text"
+              id="city"
+              name="city"
+              value={formData.city}
+              onChange={handleChange}
+              maxLength={50}
+              className={errors.city ? 'error' : ''}
+            />
+            {errors.city && (
+              <span className="error-text">{errors.city}</span>
+            )}
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="state">State <span className="required">*</span></label>
+            <input
+              type="text"
+              id="state"
+              name="state"
+              value={formData.state}
+              onChange={handleChange}
+              maxLength={50}
+              className={errors.state ? 'error' : ''}
+            />
+            {errors.state && (
+              <span className="error-text">{errors.state}</span>
             )}
           </div>
 
