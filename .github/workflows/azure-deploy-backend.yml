@@ -32,9 +32,7 @@ jobs:
       run: |
         cd code-challenge-api
         chmod +x mvnw
-        ./mvnw clean package -DskipTests
-      env:
-        MAVEN_OPTS: "-Xmx512m"
+        ./mvnw clean package -DskipTests -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true
 
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
