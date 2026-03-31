@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './AddBuyer.css';
+import loggerService from '../services/loggerService';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8081';
 
@@ -93,6 +94,8 @@ const AddBuyer = () => {
     setSuccessMessage('');
 
     try {
+      loggerService.info('Submitting buyer form', { firstName: formData.firstName, city: formData.city });
+      
       const response = await fetch(`${API_URL}/api/buyers`, {
         method: 'POST',
         headers: {
@@ -103,11 +106,16 @@ const AddBuyer = () => {
 
       if (response.ok) {
         const data = await response.json();
+        loggerService.info('Buyer created successfully', { buyerId: data.id });
         setSuccessMessage(`Buyer created successfully with ID: ${data.id}`);
         setFormData({ firstName: '', lastName: '', email: '', city: '', state: '' });
         setErrors({});
       } else {
         const errorData = await response.json();
+        loggerService.error('Failed to create buyer', errorData.message || 'Unknown error', { 
+          status: response.status,
+          errors: errorData.errors 
+        });
         if (errorData.errors) {
           setErrors(errorData.errors);
         } else {
@@ -115,6 +123,7 @@ const AddBuyer = () => {
         }
       }
     } catch (err) {
+      loggerService.error('Network error while creating buyer', err, { apiUrl: API_URL });
       setErrorMessage('Network error. Please check your connection and try again.');
     } finally {
       setLoading(false);
