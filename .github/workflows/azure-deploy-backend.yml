@@ -11,6 +11,7 @@ on:
 
 env:
   AZURE_WEBAPP_NAME: coding-contest-api-fqh8agb3gga3h7d2
+  JAVA_VERSION: '21'
 
 jobs:
   build-and-deploy:
@@ -20,22 +21,24 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Set up Java 17
+    - name: Set up Java
       uses: actions/setup-java@v4
       with:
-        java-version: 17
-        distribution: temurin
+        java-version: ${{ env.JAVA_VERSION }}
+        distribution: 'adopt'
+        cache: 'maven'
 
     - name: Build with Maven
       run: |
         cd code-challenge-api
-        mvn clean package -DskipTests
+        mvn clean package -DskipTests -s .mvn/maven-settings.xml
       env:
-        MAVEN_OPTS: "-Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -Dmaven.wagon.http.ssl.ignore.validity.dates=true"
+        MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2,TLSv1.3 -Djavax.net.ssl.trustStoreType=jks"
 
     - name: Deploy to Azure Web App
-      uses: azure/webapps-deploy@v3
+      uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
         package: code-challenge-api/target/*.jar
+        startup-command: 'java -jar /home/site/wwwroot/app.jar'
