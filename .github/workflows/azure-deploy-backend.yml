@@ -1,0 +1,43 @@
+name: Deploy Backend to Azure
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - 'code-challenge-api/**'
+  workflow_dispatch:
+
+env:
+  AZURE_WEBAPP_NAME: coding-contest-api    # Update this to your Azure App Service name
+  JAVA_VERSION: '17'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Java
+      uses: actions/setup-java@v4
+      with:
+        java-version: ${{ env.JAVA_VERSION }}
+        distribution: 'adopt'
+        cache: 'maven'
+
+    - name: Build with Maven
+      run: |
+        cd code-challenge-api
+        mvn clean package -DskipTests -s .mvn/maven-settings.xml
+      env:
+        MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2,TLSv1.3 -Djavax.net.ssl.trustStoreType=jks"
+
+    - name: Deploy to Azure Web App
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: ${{ env.AZURE_WEBAPP_NAME }}
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+        package: code-challenge-api/target/*.jar

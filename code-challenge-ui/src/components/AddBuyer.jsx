@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './AddBuyer.css';
 
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8081';
+
 const AddBuyer = () => {
   const [formData, setFormData] = useState({
     firstName: '',
@@ -73,7 +75,7 @@ const AddBuyer = () => {
     setSuccessMessage('');
 
     try {
-      const response = await fetch('http://localhost:8081/api/buyers', {
+      const response = await fetch(`${API_URL}/api/buyers`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
